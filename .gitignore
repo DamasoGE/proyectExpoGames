@@ -1,0 +1,19 @@
+# Node modules
+node_modules/
+
+# Directorios de caché
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Archivos y carpetas generadas por el sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de lock
+package-lock.json
+yarn.lock
+
+# Carpetas de build o dist
+build/
+dist/

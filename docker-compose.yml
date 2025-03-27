@@ -1,0 +1,36 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodb_metacritic
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27017:27017"  # Accesible en el puerto 27017 desde el host
+    volumes:
+      - mongodb_data_metacritic:/data/db  # Persistencia de datos
+    networks:
+      - mongo-network
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express_metacritic
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: root
+      ME_CONFIG_BASICAUTH_PASSWORD: root
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+      ME_CONFIG_MONGODB_SERVER: mongo
+    ports:
+      - "8090:8081"  # Accesible en el puerto 8081 desde el host
+    depends_on:
+      - mongo
+    networks:
+      - mongo-network
+
+volumes:
+  mongodb_data_metacritic:  # Volumen para persistir los datos de MongoDB
+
+networks:
+  mongo-network:  # Red interna para los contenedores
+    driver: bridge
